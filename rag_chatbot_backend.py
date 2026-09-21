@@ -33,12 +33,15 @@ load_dotenv()
 # -------------------
 '''llm = ChatOllama(model="nomic-embed-text")
 embeddings = OllamaEmbeddings(model="llama3.2")'''
+from langchain_huggingface import HuggingFaceEndpoint, ChatHuggingFace
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+
+HF_TOKEN = os.getenv("HF_TOKEN")
 
 llm = ChatHuggingFace(
     llm=HuggingFaceEndpoint(
         repo_id="HuggingFaceH4/zephyr-7b-beta",
+        huggingfacehub_api_token=HF_TOKEN,
         temperature=0.1,
         max_new_tokens=512,
     )
