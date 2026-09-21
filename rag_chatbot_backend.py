@@ -40,7 +40,7 @@ HF_TOKEN = os.getenv("HF_TOKEN")
 
 llm = ChatHuggingFace(
     llm=HuggingFaceEndpoint(
-        repo_id="HuggingFaceH4/zephyr-7b-beta",
+        repo_id="openai/gpt-oss-120b",
         huggingfacehub_api_token=HF_TOKEN,
         temperature=0.1,
         max_new_tokens=512,

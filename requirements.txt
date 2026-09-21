@@ -29,11 +29,10 @@ langchain-classic
 wikipedia
 
 # Ollama
-langchain-ollama
+#langchain-ollama
 
 # Chroma Vector Database
 chromadb
-langchain-chroma
 faiss-cpu
 
 # Environment variables
@@ -52,3 +51,4 @@ ddgs
 langchain-huggingface
 sentence-transformers
 huggingface_hub
+langchain-groq
