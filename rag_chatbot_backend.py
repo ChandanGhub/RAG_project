@@ -31,8 +31,22 @@ load_dotenv()
 # -------------------
 # 1. LLM + embeddings
 # -------------------
-llm = ChatOllama(model="nomic-embed-text")
-embeddings = OllamaEmbeddings(model="llama3.2")
+'''llm = ChatOllama(model="nomic-embed-text")
+embeddings = OllamaEmbeddings(model="llama3.2")'''
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
+
+llm = ChatHuggingFace(
+    llm=HuggingFaceEndpoint(
+        repo_id="HuggingFaceH4/zephyr-7b-beta",
+        temperature=0.1,
+        max_new_tokens=512,
+    )
+)
+
+embeddings = HuggingFaceEmbeddings(
+    model_name="sentence-transformers/all-MiniLM-L6-v2"
+)
 
 # -------------------
 # 2. PDF retriever store (per thread)

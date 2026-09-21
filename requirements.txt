@@ -48,3 +48,7 @@ youtube-transcript-api
 
 # Duck duck go 
 ddgs
+# embedding
+langchain-huggingface
+sentence-transformers
+huggingface_hub
