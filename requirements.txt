@@ -45,3 +45,6 @@ ipykernel
 
 # youtube transcript api
 youtube-transcript-api
+
+# Duck duck go 
+ddgs
