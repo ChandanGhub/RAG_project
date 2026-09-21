@@ -1,0 +1,45 @@
+# libraries
+pandas
+numpy
+scikit-learn
+matplotlib
+
+# LangChain core
+langchain
+langchain-community
+langchain-core
+langchain-text-splitters
+langchain-experimental
+
+# langgraph
+langgraph
+
+# docs loader
+unstructured[pdf]
+boto3
+# PDF processing
+pypdf
+pdfplumber
+
+# multiquery retriever
+langchain-classic
+# Retrieval
+wikipedia
+
+# Ollama
+langchain-ollama
+
+# Chroma Vector Database
+chromadb
+langchain-chroma
+faiss-cpu
+
+# Environment variables
+python-dotenv
+
+# Jupyter / VS Code
+jupyter
+ipykernel
+
+# youtube transcript api
+youtube-transcript-api
