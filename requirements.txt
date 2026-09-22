@@ -54,4 +54,5 @@ huggingface_hub
 langchain-groq
 
 # Google gemini
-langchain-google-genai
+langchain-google-genai>=4.0.0
+google-genai>=1.0.0
