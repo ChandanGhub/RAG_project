@@ -59,7 +59,7 @@ threads = st.session_state["chat_threads"][::-1]
 selected_thread = None
 
 # ============================ Sidebar ============================
-st.sidebar.title("LangGraph Chatbot: PDF (Only)")
+st.sidebar.title("LangGraph Chatbot:")
 st.sidebar.markdown(f"**Thread ID:** `{thread_key}`")
 
 if st.sidebar.button("New Chat", use_container_width=True):
