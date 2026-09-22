@@ -47,7 +47,7 @@ llm = ChatGoogleGenerativeAI(
     model="gemini-3.5-flash",
     google_api_key=GOOGLE_API_KEY,
     temperature=0.1,
-    max_output_tokens=4096,
+    max_output_tokens=2048,
 )
 
 embeddings = HuggingFaceEmbeddings(
@@ -92,7 +92,7 @@ def ingest_pdf(file_bytes: bytes, thread_id: str, filename: Optional[str] = None
 
         vector_store = FAISS.from_documents(chunks, embeddings)
         retriever = vector_store.as_retriever(
-            search_type="similarity", search_kwargs={"k": 6} # relevant chunks -- 4, 6, 8
+            search_type="similarity", search_kwargs={"k": 4} # relevant chunks -- 4, 6, 8
         )
 
         _THREAD_RETRIEVERS[str(thread_id)] = retriever
