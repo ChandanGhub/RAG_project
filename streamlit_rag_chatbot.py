@@ -356,7 +356,7 @@ for message in st.session_state["message_history"]:
 # ============================================================
 
 user_input = st.chat_input(
-    "Ask about your document or use tools..."
+    "Ask about your document or ASK Anything..."
 )
 
 
