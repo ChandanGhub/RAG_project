@@ -43,7 +43,7 @@ llm = ChatHuggingFace(
         repo_id="openai/gpt-oss-120b",
         huggingfacehub_api_token=HF_TOKEN,
         temperature=0.1,
-        max_new_tokens=512,
+        max_new_tokens=4096, # model token 512, 4096, 8192
     )
 )
 
@@ -89,7 +89,7 @@ def ingest_pdf(file_bytes: bytes, thread_id: str, filename: Optional[str] = None
 
         vector_store = FAISS.from_documents(chunks, embeddings)
         retriever = vector_store.as_retriever(
-            search_type="similarity", search_kwargs={"k": 4}
+            search_type="similarity", search_kwargs={"k": 6} # relevant chunks -- 4, 6, 8
         )
 
         _THREAD_RETRIEVERS[str(thread_id)] = retriever
@@ -208,11 +208,24 @@ def chat_node(state: ChatState, config=None):
 
     system_message = SystemMessage(
         content=(
-            "You are a helpful assistant. For questions about the uploaded PDF, call "
-            "the `rag_tool` and include the thread_id "
-            f"`{thread_id}`. You can also use the web search, stock price, and "
-            "calculator tools when helpful. If no document is available, ask the user "
-            "to upload a PDF."
+             "You are a helpful and detailed RAG assistant.\n\n"
+
+        "For questions about the uploaded PDF, call the `rag_tool` "
+        f"and include the thread_id `{thread_id}`.\n\n"
+
+        "Answer using the retrieved document context whenever the "
+        "question is about the uploaded PDF.\n\n"
+
+        "For simple questions, give a concise answer.\n"
+        "For complex questions, provide a detailed and thorough answer.\n"
+        "Use headings, bullet points, numbered steps, examples, "
+        "and explanations when appropriate.\n\n"
+
+        "If the user asks for a detailed explanation, do not "
+        "unnecessarily shorten the response.\n\n"
+
+        "Do not invent information that is not supported by the "
+        "retrieved document."
         )
     )
 
