@@ -52,3 +52,6 @@ langchain-huggingface
 sentence-transformers
 huggingface_hub
 langchain-groq
+
+# Google gemini
+langchain-google-genai
