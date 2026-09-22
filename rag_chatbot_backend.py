@@ -19,7 +19,7 @@ from langchain_community.tools import DuckDuckGoSearchRun
 from langchain_community.vectorstores import FAISS
 from langchain_core.messages import BaseMessage, SystemMessage
 from langchain_core.tools import tool
-from langchain_ollama import ChatOllama, OllamaEmbeddings
+#from langchain_ollama import ChatOllama, OllamaEmbeddings
 from langgraph.checkpoint.sqlite import SqliteSaver
 from langgraph.graph import START, StateGraph
 from langgraph.graph.message import add_messages
