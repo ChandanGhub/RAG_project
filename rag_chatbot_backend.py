@@ -32,19 +32,19 @@ load_dotenv()
 # 1. LLM + embeddings
 # -------------------
 '''llm = ChatOllama(model="nomic-embed-text")
-embeddings = OllamaEmbeddings(model="llama3.2")'''
-from langchain_huggingface import HuggingFaceEndpoint, ChatHuggingFace
+embeddings = OllamaEmbeddings(model="llama3.2")   --- for local '''
+
 from langchain_huggingface import HuggingFaceEmbeddings
 
-HF_TOKEN = os.getenv("HF_TOKEN")
+from langchain_google_genai import ChatGoogleGenerativeAI
 
-llm = ChatHuggingFace(
-    llm=HuggingFaceEndpoint(
-        repo_id="openai/gpt-oss-120b",
-        huggingfacehub_api_token=HF_TOKEN,
-        temperature=0.1,
-        max_new_tokens=4096, # model token 512, 4096, 8192
-    )
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+
+llm = ChatGoogleGenerativeAI(
+    model="gemini-2.5-flash",
+    google_api_key=GOOGLE_API_KEY,
+    temperature=0.1,
+    max_output_tokens=4096,
 )
 
 embeddings = HuggingFaceEmbeddings(
