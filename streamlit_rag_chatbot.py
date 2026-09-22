@@ -414,78 +414,62 @@ if user_input:
 
         def ai_only_stream():
 
-            for message_chunk, metadata in chatbot.stream(
+    for message_chunk, metadata in chatbot.stream(
+        {"messages": [HumanMessage(content=user_input)]},
+        config=CONFIG,
+        stream_mode="messages",
+    ):
 
-                {
-                    "messages": [
-                        HumanMessage(
-                            content=user_input
-                        )
-                    ]
-                },
+        # -----------------------------
+        # TOOL MESSAGE
+        # -----------------------------
+        if isinstance(message_chunk, ToolMessage):
 
-                config=CONFIG,
+            tool_name = getattr(message_chunk, "name", "tool")
 
-                stream_mode="messages",
-            ):
+            if status_holder["box"] is None:
 
-                # --------------------------------------------
-                # Tool message
-                # --------------------------------------------
+                status_holder["box"] = st.status(
+                    f"🔧 Using `{tool_name}` …",
+                    expanded=True
+                )
 
-                if isinstance(
-                    message_chunk,
-                    ToolMessage,
-                ):
+            else:
 
-                    tool_name = getattr(
-                        message_chunk,
-                        "name",
-                        "tool",
-                    )
+                status_holder["box"].update(
+                    label=f"🔧 Using `{tool_name}` …",
+                    state="running",
+                    expanded=True
+                )
 
+        # -----------------------------
+        # AI MESSAGE
+        # -----------------------------
+        if isinstance(message_chunk, AIMessage):
 
-                    if status_holder["box"] is None:
+            content = message_chunk.content
 
-                        status_holder["box"] = st.status(
-                            f"🔧 Using `{tool_name}`...",
-                            expanded=True,
-                        )
+            # Normal string response
+            if isinstance(content, str):
 
-                    else:
+                if content:
+                    yield content
 
-                        status_holder["box"].update(
-                            label=f"🔧 Using `{tool_name}`...",
-                            state="running",
-                            expanded=True,
-                        )
+            # Gemini structured response
+            elif isinstance(content, list):
 
+                for block in content:
 
-                # --------------------------------------------
-                # AI message
-                # --------------------------------------------
+                    if isinstance(block, dict):
 
-                if isinstance(message_chunk, AIMessage):
+                        text = block.get("text")
 
-    content = message_chunk.content
+                        if text:
+                            yield text
 
-    # Normal text response
-    if isinstance(content, str):
-        if content:
-            yield content
+                    elif isinstance(block, str):
 
-    # Gemini structured content
-    elif isinstance(content, list):
-        for block in content:
-
-            if isinstance(block, dict):
-                text = block.get("text")
-
-                if text:
-                    yield text
-
-            elif isinstance(block, str):
-                yield block
+                        yield block
 
 
         # Stream assistant response
