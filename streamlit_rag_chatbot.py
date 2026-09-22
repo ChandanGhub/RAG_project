@@ -473,9 +473,23 @@ if user_input:
 
 
         # Stream assistant response
-        ai_message = st.write_stream(
-            ai_only_stream()
-        )
+        try:
+            ai_message = st.write_stream(ai_only_stream())
+        
+        except Exception as e:
+        
+            error_text = str(e)
+        
+            if "RateLimit" in error_text or "429" in error_text:
+                st.error(
+                    "Gemini API rate limit reached. "
+                    "Please wait a moment and try again."
+                )
+                ai_message = ""
+        
+            else:
+                st.error(f"Something went wrong: {error_text}")
+                ai_message = ""
 
 
         # ----------------------------------------------------
