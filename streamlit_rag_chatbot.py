@@ -1,7 +1,6 @@
 # Owner : CHANDAN
 # Contact : Chandansahho@gmail.com
 
-# python components/streamlit_rag_chatbot.py
 
 import uuid
 
