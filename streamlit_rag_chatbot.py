@@ -465,15 +465,27 @@ if user_input:
                 # AI message
                 # --------------------------------------------
 
-                if isinstance(
-                    message_chunk,
-                    AIMessage,
-                ):
+                if isinstance(message_chunk, AIMessage):
 
-                    # content can sometimes be empty
-                    if message_chunk.content:
+    content = message_chunk.content
 
-                        yield message_chunk.content
+    # Normal text response
+    if isinstance(content, str):
+        if content:
+            yield content
+
+    # Gemini structured content
+    elif isinstance(content, list):
+        for block in content:
+
+            if isinstance(block, dict):
+                text = block.get("text")
+
+                if text:
+                    yield text
+
+            elif isinstance(block, str):
+                yield block
 
 
         # Stream assistant response
