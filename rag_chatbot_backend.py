@@ -44,17 +44,11 @@ if not GOOGLE_API_KEY:
     raise ValueError("GOOGLE_API_KEY is not configured.")
 
 llm = ChatGoogleGenerativeAI(
-    model="gemini-2.5-flash",
+    model="gemini-3.5-flash",
     google_api_key=GOOGLE_API_KEY,
     temperature=0.1,
-    max_output_tokens=1000,
+    max_output_tokens=4096,
 )
-
-test_response = llm.invoke(
-    "Hello. Reply with only: Gemini is working."
-)
-
-print("GEMINI TEST:", test_response.content)
 
 embeddings = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-MiniLM-L6-v2"
