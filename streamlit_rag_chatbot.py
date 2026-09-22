@@ -98,7 +98,7 @@ else:
             selected_thread = thread_id
 
 # ============================ Main Layout ========================
-st.title("Multi Utility Chatbot")
+st.title("RAG Chatbot(PDF)")
 
 # Chat area
 for message in st.session_state["message_history"]:
